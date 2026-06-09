@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     POSTGRES_PORT: int = 5432
     POSTGRES_DB: str = "ragchatbot"
     POSTGRES_USER: str = "raguser"
-    POSTGRES_PASSWORD: str = "Yashiist007"
+    POSTGRES_PASSWORD: str = ""
 
     @property
     def DATABASE_URL(self) -> str:
