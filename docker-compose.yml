@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_DB: ragchatbot
       POSTGRES_USER: raguser
-      POSTGRES_PASSWORD: Yashiist007
+      POSTGRES_PASSWORD: 
     ports:
       - "5432:5432"
     volumes:
@@ -27,7 +27,7 @@ services:
     container_name: ragchatbot_backend
     restart: unless-stopped
     environment:
-      - POSTGRES_PASSWORD=Yashiist007
+      - POSTGRES_PASSWORD=
     env_file: .env
     ports:
       - "${APP_PORT:-8000}:8000"
@@ -48,7 +48,7 @@ services:
     env_file: .env
     environment:
       - PYTHONPATH=/app
-      - POSTGRES_PASSWORD=Yashiist007
+      - POSTGRES_PASSWORD=
     volumes:
       - ./docs:/app/docs
       - ./backend:/app
@@ -68,7 +68,7 @@ services:
     env_file: .env
     environment:
       - PYTHONPATH=/app
-      - POSTGRES_PASSWORD=Yashiist007
+      - POSTGRES_PASSWORD=
     volumes:
       - ./docs:/app/docs
       - ./backend:/app
@@ -88,7 +88,7 @@ services:
     env_file: .env
     environment:
       - PYTHONPATH=/app
-      - POSTGRES_PASSWORD=Yashiist007
+      - POSTGRES_PASSWORD=
     volumes:
       - ./docs:/app/docs
       - ./backend:/app
