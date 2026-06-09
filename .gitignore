@@ -1,0 +1,188 @@
+# ─────────────────────────────────────────────────────
+#  Python
+# ─────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+wheels/
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+.installed.cfg
+lib/
+lib64/
+.eggs/
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.virtualenv/
+
+# ─────────────────────────────────────────────────────
+#  Environment & Secrets — NEVER COMMIT THESE
+# ─────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets.json
+secrets.yaml
+
+# ─────────────────────────────────────────────────────
+#  Alembic
+# ─────────────────────────────────────────────────────
+# Keep migration scripts, ignore local DB state files
+alembic/versions/__pycache__/
+
+# ─────────────────────────────────────────────────────
+#  Node.js / Frontend
+# ─────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm
+.yarn/
+.pnp.*
+
+# Build output
+frontend/dist/
+frontend/build/
+frontend/.vite/
+dist/
+build/
+
+# ─────────────────────────────────────────────────────
+#  Docker
+# ─────────────────────────────────────────────────────
+# Docker volumes and data (generated at runtime)
+pgdata/
+
+# ─────────────────────────────────────────────────────
+#  Document Folders — Large binary files
+# ─────────────────────────────────────────────────────
+# Incoming PDFs (user drops them, not version-controlled)
+docs/incoming/
+docs/processed/
+docs/ocr_output/
+docs/failed/
+
+# Keep the folder structure with .gitkeep files
+!docs/incoming/.gitkeep
+!docs/processed/.gitkeep
+!docs/ocr_output/.gitkeep
+!docs/failed/.gitkeep
+
+# ─────────────────────────────────────────────────────
+#  Model / ML Artifacts
+# ─────────────────────────────────────────────────────
+# Hugging Face / sentence-transformers cached models
+.cache/
+~/.cache/
+backend/.cache/
+*.bin
+*.pt
+*.safetensors
+models/
+
+# ─────────────────────────────────────────────────────
+#  IDEs & Editors
+# ─────────────────────────────────────────────────────
+# VS Code
+.vscode/
+!.vscode/extensions.json
+
+# JetBrains / PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim / Neovim
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ─────────────────────────────────────────────────────
+#  Logs & Temp Files
+# ─────────────────────────────────────────────────────
+*.log
+*.log.*
+logs/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+
+# pytest cache
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+
+# mypy / type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# ─────────────────────────────────────────────────────
+#  Jupyter Notebooks (if any)
+# ─────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ─────────────────────────────────────────────────────
+#  Tesseract / OCR
+# ─────────────────────────────────────────────────────
+# Temporary image files created during OCR
+*.tif
+*.tiff
+tmp_ocr_*/
+
+# ─────────────────────────────────────────────────────
+#  Miscellaneous
+# ─────────────────────────────────────────────────────
+*.csv
+*.sqlite
+*.db
+*.db-shm
+*.db-wal

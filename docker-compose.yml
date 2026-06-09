@@ -1,0 +1,119 @@
+services:
+  # ── PostgreSQL + pgvector ──────────────────────────────────────────
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: ragchatbot_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ragchatbot
+      POSTGRES_USER: raguser
+      POSTGRES_PASSWORD: Yashiist007
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U raguser -d ragchatbot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Backend API ────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ragchatbot_backend
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=Yashiist007
+    env_file: .env
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    volumes:
+      - ./docs:/app/docs
+      - ./backend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # ── OCR only: PDF → docs/ocr_output/*.txt ─────────────────────────
+  ocr:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ragchatbot_ocr
+    env_file: .env
+    environment:
+      - PYTHONPATH=/app
+      - POSTGRES_PASSWORD=Yashiist007
+    volumes:
+      - ./docs:/app/docs
+      - ./backend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    profiles:
+      - ocr
+    command: python -m app.ingestion.ocr --dir ./docs/incoming
+
+  # ── Ingest only: docs/ocr_output/*.txt → embeddings ───────────────
+  ingest:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ragchatbot_ingest
+    env_file: .env
+    environment:
+      - PYTHONPATH=/app
+      - POSTGRES_PASSWORD=Yashiist007
+    volumes:
+      - ./docs:/app/docs
+      - ./backend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    profiles:
+      - ingest
+    command: python -m app.ingestion.ingest --dir ./docs/ocr_output
+
+  # ── Pipeline: OCR then Ingest sequentially ────────────────────────
+  pipeline:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ragchatbot_pipeline
+    env_file: .env
+    environment:
+      - PYTHONPATH=/app
+      - POSTGRES_PASSWORD=Yashiist007
+    volumes:
+      - ./docs:/app/docs
+      - ./backend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    profiles:
+      - pipeline
+    command: >
+      sh -c "python -m app.ingestion.ocr --dir ./docs/incoming &&
+             python -m app.ingestion.ingest --dir ./docs/ocr_output"
+
+  # ── Frontend ───────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ragchatbot_frontend
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000
+
+volumes:
+  pgdata:

@@ -1,0 +1,295 @@
+:root {
+  /* Aesthetic Sky Blue & Pastel Palette */
+  --bg-primary: #f0f4f8;      /* Light fallback */
+  --bg-secondary: rgba(255, 255, 255, 0.65); /* Translucent bright panels */
+  --bg-glass: rgba(255, 255, 255, 0.45);     /* Frosty glass look */
+  
+  --accent: #3b82f6;           /* Deep sky blue */
+  --accent-secondary: #8b5cf6; /* Aesthetic lavender */
+  --accent-glow: rgba(59, 130, 246, 0.25);
+  
+  /* Text adjustments for light background */
+  --text-primary: #1e293b;     /* Dark slate for crystal clear reading */
+  --text-secondary: #64748b;   /* Muted slate */
+  --border: rgba(255, 255, 255, 0.6); /* Soft white border lines */
+  
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  /* Premium moving sky-gradient mix */
+  background: linear-gradient(-45deg, #e0f2fe, #e0e7ff, #f3e8ff, #e0f7fa);
+  background-size: 400% 400%;
+  animation: gradientBg 12s ease infinite;
+  color: var(--text-primary);
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.glass {
+  background: var(--bg-glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+/* Sidebar Fixes */
+.sidebar {
+  width: 280px;
+  flex-shrink: 0; /* Prevents sidebar from disappearing */
+  background: rgba(15, 14, 38, 0.7);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  z-index: 10;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  background: linear-gradient(to right, var(--accent), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+}
+
+.nav-link:hover, .nav-link.active {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Main Content Wrapper Fix */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-width: 0; /* Critical layout fix for flex-children width issues */
+  height: 100%;
+}
+
+/* Chat Layout Fixes */
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+}
+
+.messages-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  scroll-behavior: smooth;
+}
+
+.input-area {
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+}
+
+.input-form {
+  display: flex;
+  gap: 1rem;
+  max-width: 850px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  color: #0f172a;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.chat-input::placeholder {
+  color: #64748b; /* Medium slate gray so the placeholder is readable but distinct */
+  opacity: 0.8;
+}
+
+.chat-input:focus {
+  background: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+.send-btn {
+  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.send-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
+
+/* Chat Bubbles Style & Animated Keyword Glow */
+.message-bubble {
+  max-width: 75%;
+  padding: 1.25rem 1.5rem;
+  word-break: break-word; /* Prevents rendering layout overflow breakages */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.message-user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, var(--accent), #2563eb);
+  color: #ffffff; /* Ensures user text remains bright white on the blue bubble */
+  border-radius: 20px 20px 0 20px;
+  animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.message-bot {
+  align-self: flex-start;
+  border-radius: 20px 20px 20px 0;
+  animation: slideInLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  position: relative;
+}
+
+/* Streaming/Typing Animation Component */
+.streaming-indicator {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  padding: 4px 8px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--accent-secondary);
+  animation: pulseGlow 1.5s ease-in-out infinite alternate;
+}
+
+.streaming-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent-secondary);
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+.streaming-dot:nth-child(1) { animation-delay: -0.32s; }
+.streaming-dot:nth-child(2) { animation-delay: -0.16s; }
+
+/* Markdown internal structure */
+.markdown-content {
+  overflow-x: auto;
+}
+.markdown-content p:last-child { margin-bottom: 0; }
+
+/* Follow-up Chips Container Fixes (Keeps them cleanly stacked inside viewpoint) */
+.followups {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap; /* Prevents running off screen horizontally */
+  margin-top: 0.5rem;
+  padding: 0.5rem 0;
+  width: 100%;
+  align-self: flex-start;
+}
+
+.chip {
+  padding: 0.55rem 1.1rem;
+  border-radius: 99px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: slideInUp 0.4s ease forwards;
+}
+
+.chip:hover {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+/* Animations Definitions */
+@keyframes gradientBg {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px) scale(0.98); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px) scale(0.98); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+  from { box-shadow: 0 0 5px rgba(168, 85, 247, 0.2); }
+  to { box-shadow: 0 0 15px rgba(168, 85, 247, 0.5); }
+}
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1.0); }
+}
