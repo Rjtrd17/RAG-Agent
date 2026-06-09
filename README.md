@@ -1,4 +1,4 @@
-# 🤖 The Secretariat — Government Scheme RAG Chatbot
+# 🤖 RAG Chatbot
 
 <div align="center">
 
