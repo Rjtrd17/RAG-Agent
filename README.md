@@ -38,7 +38,7 @@ Answers any citizen query in ≤ 3 seconds at ~₹0.2–0.5/query cost.
 
 ## 🌐 Overview
 
-**The Secretariat** is a production-ready AI-powered chatbot built to help citizens, officials, and researchers instantly retrieve accurate information from thousands of government policy documents, schemes, and circulars.
+**RAG- Chatbot** is a production-ready AI-powered chatbot built to help citizens, officials, and researchers instantly retrieve accurate information from thousands of government policy documents, schemes, and circulars.
 
 - 📄 Ingests **1000+ PDF and TXT** government documents
 - ⚡ Returns answers in **≤ 3 seconds**
